@@ -5,7 +5,8 @@ import { sessions, showcases, sponsors } from '../data/site';
 import { withBase } from '../utils/paths';
 
 const news = (await getCollection('news')).sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
-const programmeGroups = [0, 1, 2];
+const programmeGroups = Array.from({ length: 7 }, (_, index) => index);
+const primaryProgrammeGroup = Math.floor(programmeGroups.length / 2);
 ---
 
 <Layout title="首页">
@@ -26,7 +27,7 @@ const programmeGroups = [0, 1, 2];
       </div>
     </div>
     <div class="hero-meta">
-      <div class="shell"><span>2026 · 春季 · 北京</span><span>主旨 · 知识、传承与公共理性</span><span>主办 · 自强学术促进会</span></div>
+      <div class="shell"><span>2026 · 秋季 · 武汉</span><span>主旨 · 知识、传承与公共理性</span><span>主办 · 自强学术促进会</span></div>
     </div>
   </section>
 
@@ -42,14 +43,14 @@ const programmeGroups = [0, 1, 2];
           {programmeGroups.map((groupIndex) => (
             <div
               class="programme-group"
-              data-programme-group={groupIndex === 1 ? 'primary' : undefined}
-              aria-hidden={groupIndex === 1 ? undefined : 'true'}
+              data-programme-group={groupIndex === primaryProgrammeGroup ? 'primary' : undefined}
+              aria-hidden={groupIndex === primaryProgrammeGroup ? undefined : 'true'}
             >
               {sessions.map((session, index) => session.href ? (
                 <a
                   class:list={['programme-card', 'programme-more', index > 0 && 'with-rule']}
                   href={withBase(session.href)}
-                  tabindex={groupIndex === 1 ? undefined : -1}
+                  tabindex={groupIndex === primaryProgrammeGroup ? undefined : -1}
                 >
                   <span class="programme-number">{session.number}</span>
                   <h3>{session.title}</h3>
@@ -134,29 +135,35 @@ const programmeGroups = [0, 1, 2];
   if (reel instanceof HTMLElement && primaryGroup instanceof HTMLElement) {
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
     let groupWidth = 0;
-    let previousGroupWidth = 0;
+    let previousGroupStart = 0;
     let automaticPosition = 0;
     let dragging = false;
     let dragged = false;
     let suppressClick = false;
     let pointerStart = 0;
-    let scrollStart = 0;
+    let previousPointer = 0;
     let resumeAt = performance.now() + 1800;
     let previousTick = performance.now();
 
     const normalizePosition = () => {
       if (!groupWidth) return;
-      if (automaticPosition >= groupWidth * 2) automaticPosition -= groupWidth;
-      if (automaticPosition < groupWidth) automaticPosition += groupWidth;
+      const center = primaryGroup.offsetLeft;
+      while (automaticPosition >= center + groupWidth) automaticPosition -= groupWidth;
+      while (automaticPosition < center - groupWidth) automaticPosition += groupWidth;
       reel.scrollLeft = automaticPosition;
     };
 
     const measure = () => {
-      const progress = previousGroupWidth ? (automaticPosition - previousGroupWidth) / previousGroupWidth : 0;
+      const hasMeasurement = groupWidth > 0;
+      const relativePosition = hasMeasurement ? (automaticPosition - previousGroupStart) / groupWidth : 0;
       groupWidth = primaryGroup.offsetWidth;
-      automaticPosition = groupWidth + Math.max(0, Math.min(1, progress)) * groupWidth;
-      reel.scrollLeft = automaticPosition;
-      previousGroupWidth = groupWidth;
+      const groupStart = primaryGroup.offsetLeft;
+      const contentInset = document.querySelector('.programme-section .section-heading')?.getBoundingClientRect().left ?? 0;
+      automaticPosition = hasMeasurement
+        ? groupStart + relativePosition * groupWidth
+        : groupStart - contentInset;
+      previousGroupStart = groupStart;
+      normalizePosition();
     };
 
     const pause = (delay = 1800) => {
@@ -168,7 +175,7 @@ const programmeGroups = [0, 1, 2];
       dragging = true;
       dragged = false;
       pointerStart = event.clientX;
-      scrollStart = reel.scrollLeft;
+      previousPointer = event.clientX;
       reel.classList.add('is-dragging');
       reel.setPointerCapture(event.pointerId);
       pause();
@@ -176,9 +183,9 @@ const programmeGroups = [0, 1, 2];
 
     reel.addEventListener('pointermove', (event) => {
       if (!dragging) return;
-      const distance = event.clientX - pointerStart;
-      if (Math.abs(distance) > 4) dragged = true;
-      automaticPosition = scrollStart - distance;
+      if (Math.abs(event.clientX - pointerStart) > 4) dragged = true;
+      automaticPosition -= event.clientX - previousPointer;
+      previousPointer = event.clientX;
       normalizePosition();
     });
 
@@ -196,7 +203,10 @@ const programmeGroups = [0, 1, 2];
     reel.addEventListener('pointercancel', finishDrag);
     reel.addEventListener('wheel', () => {
       pause();
-      window.setTimeout(() => { automaticPosition = reel.scrollLeft; }, 0);
+      window.requestAnimationFrame(() => {
+        automaticPosition = reel.scrollLeft;
+        normalizePosition();
+      });
     }, { passive: true });
     reel.addEventListener('click', (event) => {
       if (!suppressClick) return;

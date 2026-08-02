@@ -12,7 +12,7 @@ export const sessions = [
     number: '01',
     title: '开幕主旨演讲',
     description: '由知名学者就本届主旨“知识、传承与公共理性”作开场报告，奠定研讨基调。',
-    speaker: '陈守正 教授',
+    speaker: 'ABC 教授',
     time: '09:00 – 10:30',
   },
   {
@@ -67,38 +67,38 @@ export const archiveItems = [
 ];
 
 export const members = [
-  { name: '林知远', role: '组委会主席', focus: '负责总体策划、学术议程与外部联络。', initials: '林' },
-  { name: '姚志远', role: '后勤与合作负责人', focus: '负责场地、物资、赞助与合作对接。', initials: '姚' },
-  { name: '苏婉清', role: '内容与传播负责人', focus: '负责新闻、人物采访与资料整理。', initials: '苏' },
-  { name: '周明远', role: '技术负责人', focus: '负责网站、资料归档与线上发布。', initials: '周' },
+  { name: 'EFG', role: '组委会主席', focus: '负责总体策划、学术议程与外部联络。', initials: 'EFG' },
+  { name: 'HIJ', role: '后勤与合作负责人', focus: '负责场地、物资、赞助与合作对接。', initials: 'HIJ' },
+  { name: 'KLM', role: '内容与传播负责人', focus: '负责新闻、人物采访与资料整理。', initials: 'KLM' },
+  { name: 'NOP', role: '技术负责人', focus: '负责网站、资料归档与线上发布。', initials: 'NOP' },
 ];
 
 export const showcases = [
   {
     type: '论文',
     title: '宋代书院制度与现代大学精神',
-    author: '何承泽',
+    author: 'QRS',
     identity: '历史系 2022 级博士生',
     summary: '梳理宋代书院的组织形态与教学理念，反思其与现代大学自治、通识教育传统之间的历史延续与断裂。',
   },
   {
     type: '项目',
     title: '铯元素核反应截面的实验测定',
-    author: '周明远 等',
+    author: 'NOP 等',
     identity: '物理学院本科生课题组',
     summary: '利用加速器实验测定铯元素核反应截面数据，为相关天体物理模型提供新的实验约束。',
   },
   {
     type: '报告',
     title: '城市记忆的口述史方法：以北京胡同为例',
-    author: '苏婉清',
+    author: 'KLM',
     identity: '社会学系 2023 级硕士生',
     summary: '通过口述史方法记录北京胡同居民的日常记忆，讨论城市更新中的历史保存。',
   },
   {
     type: '论文',
     title: '公共理性与数字时代的信息秩序',
-    author: '林知远',
+    author: 'EFG',
     identity: '哲学系 2024 级博士生',
     summary: '考察数字媒介对公共理性的塑造作用，主张重建学术共同体的论证规范与知识权威。',
   },
