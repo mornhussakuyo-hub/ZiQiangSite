@@ -68,7 +68,7 @@ h1, h2, h3, h4 { font-family: var(--serif); letter-spacing: -.025em; }
 .inline-link:hover, .read-more:hover { color: var(--accent); }
 
 .home-hero { position: relative; min-height: 100svh; padding-top: 68px; display: flex; flex-direction: column; justify-content: center; overflow: hidden; }
-.hero-image { position: absolute; inset: 0; z-index: -1; background-image: linear-gradient(to bottom, rgba(249, 248, 246, .7), rgba(249, 248, 246, .4), var(--background)), linear-gradient(rgba(249, 248, 246, .82), rgba(249, 248, 246, .82)), var(--hero-image); background-position: center; background-size: cover; }
+.hero-image { position: absolute; inset: 0; z-index: -1; background-image: linear-gradient(to bottom, rgba(249, 248, 246, .58), rgba(249, 248, 246, .25), rgba(249, 248, 246, .72)), linear-gradient(rgba(249, 248, 246, .58), rgba(249, 248, 246, .58)), var(--hero-image); background-position: center; background-size: cover; }
 .hero-content { position: relative; z-index: 1; padding-top: 96px; padding-bottom: 96px; }
 .hero-copy { max-width: 768px; }
 .hero-copy h1 { margin: 32px 0 0; font-size: clamp(2.75rem, 6vw, 4.75rem); font-weight: 900; line-height: 1.08; letter-spacing: -.05em; }
@@ -201,7 +201,7 @@ h1, h2, h3, h4 { font-family: var(--serif); letter-spacing: -.025em; }
 .footer-grid { display: grid; grid-template-columns: 5fr 3fr 3fr; gap: 60px; padding-top: 64px; padding-bottom: 56px; }
 .footer-brand .brand-mark { border-color: rgba(249, 248, 246, .8); }.footer-brand .brand-copy small { color: rgba(249, 248, 246, .5); }
 .footer-about > p { max-width: 390px; margin: 24px 0; color: rgba(249, 248, 246, .6); font-size: 14px; line-height: 1.85; }
-.footer-institution { width: min(300px, 100%); margin: 28px 0 24px; padding-top: 20px; border-top: 1px solid rgba(249, 248, 246, .15); text-align: center; }
+.footer-institution { width: min(390px, 100%); margin: 28px 0 24px; padding-top: 20px; border-top: 1px solid rgba(249, 248, 246, .15); text-align: center; }
 .footer-institution span { display: block; margin-bottom: 14px; color: rgba(249, 248, 246, .4); font-size: 11px; font-weight: 500; letter-spacing: .22em; }
 .footer-institution img { width: 260px; height: auto; margin-inline: auto; opacity: .82; }
 .mail-link { color: rgba(249, 248, 246, .85); font-size: 15px; text-decoration: underline; text-underline-offset: 4px; }
