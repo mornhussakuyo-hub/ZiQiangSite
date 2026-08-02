@@ -144,6 +144,8 @@ const primaryProgrammeGroup = Math.floor(programmeGroups.length / 2);
     let previousPointer = 0;
     let resumeAt = performance.now() + 1800;
     let previousTick = performance.now();
+    const automaticSpeed = 0.026;
+    const accelerationDuration = 1400;
 
     const normalizePosition = () => {
       if (!groupWidth) return;
@@ -220,7 +222,9 @@ const primaryProgrammeGroup = Math.floor(programmeGroups.length / 2);
       const elapsed = Math.min(time - previousTick, 50);
       previousTick = time;
       if (!dragging && time >= resumeAt && !prefersReducedMotion.matches && !document.hidden) {
-        automaticPosition += elapsed * 0.026;
+        const accelerationProgress = Math.min(1, (time - resumeAt) / accelerationDuration);
+        const easedSpeed = accelerationProgress * accelerationProgress * (3 - 2 * accelerationProgress);
+        automaticPosition += elapsed * automaticSpeed * easedSpeed;
         normalizePosition();
       }
     };

@@ -38,7 +38,7 @@ h1, h2, h3, h4 { font-family: var(--serif); letter-spacing: -.025em; }
 .brand { display: inline-flex; align-items: center; gap: 12px; width: max-content; }
 .brand-mark { display: grid; place-items: center; width: 36px; height: 36px; flex: 0 0 36px; border: 1px solid rgba(26, 26, 26, .8); font: 700 15px/1 var(--serif); }
 .brand-copy { display: grid; line-height: 1.05; }
-.brand-copy strong { width: 112px; font: 700 15px/1.15 var(--serif); letter-spacing: .08em; }
+.brand-copy strong { width: auto; white-space: nowrap; font: 700 15px/1.15 var(--serif); letter-spacing: .08em; }
 .brand-copy small { margin-top: 5px; color: var(--muted); font: 500 9px/1 var(--sans); letter-spacing: .24em; }
 .desktop-nav { display: none; align-items: center; gap: 32px; }
 .desktop-nav a { position: relative; padding-block: 8px; color: rgba(26, 26, 26, .78); font-size: 15px; font-weight: 500; }
@@ -201,9 +201,9 @@ h1, h2, h3, h4 { font-family: var(--serif); letter-spacing: -.025em; }
 .footer-grid { display: grid; grid-template-columns: 5fr 3fr 3fr; gap: 60px; padding-top: 64px; padding-bottom: 56px; }
 .footer-brand .brand-mark { border-color: rgba(249, 248, 246, .8); }.footer-brand .brand-copy small { color: rgba(249, 248, 246, .5); }
 .footer-about > p { max-width: 390px; margin: 24px 0; color: rgba(249, 248, 246, .6); font-size: 14px; line-height: 1.85; }
-.footer-institution { width: min(300px, 100%); margin: 28px 0 24px; padding-top: 20px; border-top: 1px solid rgba(249, 248, 246, .15); }
+.footer-institution { width: min(300px, 100%); margin: 28px 0 24px; padding-top: 20px; border-top: 1px solid rgba(249, 248, 246, .15); text-align: center; }
 .footer-institution span { display: block; margin-bottom: 14px; color: rgba(249, 248, 246, .4); font-size: 11px; font-weight: 500; letter-spacing: .22em; }
-.footer-institution img { width: 260px; height: auto; opacity: .82; }
+.footer-institution img { width: 260px; height: auto; margin-inline: auto; opacity: .82; }
 .mail-link { color: rgba(249, 248, 246, .85); font-size: 15px; text-decoration: underline; text-underline-offset: 4px; }
 .footer-nav h2, .footer-magazine h2 { margin-bottom: 20px; color: rgba(249, 248, 246, .4); font: 500 12px/1.4 var(--sans); letter-spacing: .22em; }
 .footer-nav nav { display: grid; gap: 9px; }.footer-nav a { color: rgba(249, 248, 246, .75); font-size: 15px; }.footer-nav a:hover { color: var(--accent); }
@@ -228,7 +228,7 @@ h1, h2, h3, h4 { font-family: var(--serif); letter-spacing: -.025em; }
 @media (max-width: 640px) {
   body { font-size: 1rem; }
   .shell { padding-inline: 22px; }
-  .brand-copy strong { width: 96px; font-size: 14px; }
+  .brand-copy strong { font-size: 14px; }
   .hero-content { padding-top: 88px; padding-bottom: 88px; }
   .hero-copy h1 { margin-top: 34px; font-size: 2.75rem; line-height: 1.14; }
   .hero-intro { margin-top: 40px; }.hero-intro p { margin-top: 28px; font-size: 1rem; line-height: 1.9; }
