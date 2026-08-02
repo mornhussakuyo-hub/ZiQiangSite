@@ -1,0 +1,28 @@
+---
+import Layout from '../layouts/Layout.astro';
+import PageHero from '../components/PageHero.astro';
+import { members } from '../data/site';
+import { withBase } from '../utils/paths';
+---
+
+<Layout title="组委会成员">
+  <PageHero index="03" eyebrow="组委会" title="组委会成员" description="一群把问题、现场与资料放在一起的人。成员信息与头像均为占位内容，待组委会确认后替换。" />
+  <section class="listing shell">
+    <div class="filter-line"><span>一起做这件事的人</span><span>{members.length} 位成员</span></div>
+    <div class="committee-grid">
+      {members.map((member, index) => (
+        <article class="member-card">
+          <figure>
+            <img src={withBase('/images/portrait-placeholder.svg')} alt={`${member.name}的人像占位图`} />
+            <span class="member-no">0{index + 1}</span>
+          </figure>
+          <div class="member-info">
+            <h2>{member.name}</h2>
+            <div class="role">{member.role}</div>
+            <p>{member.focus}</p>
+          </div>
+        </article>
+      ))}
+    </div>
+  </section>
+</Layout>

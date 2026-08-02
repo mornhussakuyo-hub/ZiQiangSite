@@ -1,0 +1,21 @@
+---
+import Layout from '../layouts/Layout.astro';
+import PageHero from '../components/PageHero.astro';
+import { sponsors } from '../data/site';
+---
+
+<Layout title="赞助展示">
+  <PageHero index="07" eyebrow="支持伙伴" title="赞助展示" description="一场开放的学术交流，需要来自不同方向的支持。Logo、说明与外链将在确认后补充。" />
+  <section class="listing shell">
+    <div class="filter-line"><span>共同支持交流</span><span>{sponsors.length} 家伙伴</span></div>
+    <div class="sponsor-grid">
+      {sponsors.map((sponsor) => (
+        <article class="sponsor-card">
+          <div class="logo-large">{sponsor.name}</div>
+          <h2>{sponsor.label}</h2>
+          <p>{sponsor.note}</p>
+        </article>
+      ))}
+    </div>
+  </section>
+</Layout>

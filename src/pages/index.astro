@@ -1,0 +1,223 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+import { sessions, showcases, sponsors } from '../data/site';
+import { withBase } from '../utils/paths';
+
+const news = (await getCollection('news')).sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+const programmeGroups = [0, 1, 2];
+---
+
+<Layout title="首页">
+  <section id="top" class="home-hero">
+    <div class="hero-image" style={`--hero-image: url("${withBase('/images/library-hero.webp')}")`} aria-hidden="true"></div>
+    <div class="shell hero-content">
+      <div class="hero-copy">
+        <div class="section-kicker reveal reveal-1"><span></span>Ziqiang Academic Seminar · 第十二届</div>
+        <h1 class="reveal reveal-2">自强不息，<br /><em>以学为志。</em></h1>
+        <div class="hero-intro reveal reveal-3">
+          <div class="hairline"></div>
+          <p>自强学术研讨会是面向高校师生的年度学术交流活动，汇聚青年学者、研究生与本科生，围绕前沿议题展开报告、讨论与成果展示，以严谨求实为志业。</p>
+        </div>
+        <div class="hero-actions reveal reveal-3">
+          <a class="button button-primary" href="#archive">了解本期活动 <span>→</span></a>
+          <a class="button button-secondary" href={withBase('/archive')}>查看往期内容</a>
+        </div>
+      </div>
+    </div>
+    <div class="hero-meta">
+      <div class="shell"><span>2026 · 春季 · 北京</span><span>主旨 · 知识、传承与公共理性</span><span>主办 · 自强学术促进会</span></div>
+    </div>
+  </section>
+
+  <section id="archive" class="home-section programme-section">
+    <div class="shell">
+      <div class="section-heading">
+        <div class="section-kicker"><span></span>Seminar Programme</div>
+        <h2>活动环节预览</h2>
+        <p>本届研讨会以主旨演讲为始，经分论坛、圆桌讨论，至学生成果展示，循序推进。</p>
+      </div>
+      <div class="programme-scroller" data-programme-reel aria-label="活动环节，可拖动浏览">
+        <div class="programme-track">
+          {programmeGroups.map((groupIndex) => (
+            <div
+              class="programme-group"
+              data-programme-group={groupIndex === 1 ? 'primary' : undefined}
+              aria-hidden={groupIndex === 1 ? undefined : 'true'}
+            >
+              {sessions.map((session, index) => session.href ? (
+                <a
+                  class:list={['programme-card', 'programme-more', index > 0 && 'with-rule']}
+                  href={withBase(session.href)}
+                  tabindex={groupIndex === 1 ? undefined : -1}
+                >
+                  <span class="programme-number">{session.number}</span>
+                  <h3>{session.title}</h3>
+                  <p>{session.description}</p>
+                  <span class="programme-action"><span>{session.action}</span><span aria-hidden="true">→</span></span>
+                </a>
+              ) : (
+                <article class:list={['programme-card', index > 0 && 'with-rule']}>
+                  <span class="programme-number">{session.number}</span>
+                  <h3>{session.title}</h3>
+                  <p>{session.description}</p>
+                  <div class="programme-meta"><strong>{session.speaker}</strong><span>{session.time}</span></div>
+                </article>
+              ))}
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="news" class="home-section news-section">
+    <div class="shell">
+      <div class="section-heading section-heading-row">
+        <div>
+          <div class="section-kicker"><span></span>Latest News</div>
+          <h2>最新动态</h2>
+          <p>关注研讨会的征稿、评议与活动进展。</p>
+        </div>
+        <a class="inline-link" href={withBase('/news')}>查看全部新闻 <span>→</span></a>
+      </div>
+      <div class="news-rows">
+        {news.slice(0, 3).map((entry) => (
+          <a class="news-row" href={withBase(`/news/${entry.id}`)}>
+            <div class="news-meta"><time>{entry.data.date.toISOString().slice(0, 10).replaceAll('-', '.')}</time><span>{entry.data.category}</span></div>
+            <div><h3>{entry.data.title}</h3><p>{entry.data.description}</p><span class="read-more">阅读全文 →</span></div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section id="showcase" class="home-section showcase-section">
+    <div class="shell">
+      <div class="section-heading">
+        <div class="section-kicker"><span></span>Student Showcase</div>
+        <h2>学生成果展示</h2>
+        <p>节选本届研讨会入选成果，保留摘要与经过授权的下载入口。</p>
+      </div>
+      <div class="showcase-grid">
+        {showcases.map((item) => (
+          <article class="showcase-card">
+            <div class="showcase-top"><span class="file-icon">▱</span><span class="tag">{item.type}</span></div>
+            <h3>{item.title}</h3>
+            <strong>{item.author} · {item.identity}</strong>
+            <p>{item.summary}</p>
+            <div class="showcase-foot"><a href={withBase('/files/materials-note.txt')} download>下载资料 ↘</a></div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section id="committee" class="home-section sponsor-section">
+    <div class="shell">
+      <div class="sponsor-heading">
+        <div class="section-kicker centered"><span></span>Partners &amp; Sponsors<span></span></div>
+        <h2>合作伙伴与支持单位</h2>
+      </div>
+      <div class="sponsor-wall">
+        {sponsors.map((sponsor) => <div>{sponsor.name}</div>)}
+      </div>
+      <p class="sponsor-note">合作方名称与标识均为位置示意，正式上线前由组委会统一确认与替换。</p>
+    </div>
+  </section>
+</Layout>
+
+<script>
+  const reel = document.querySelector('[data-programme-reel]');
+  const primaryGroup = reel?.querySelector('[data-programme-group="primary"]');
+
+  if (reel instanceof HTMLElement && primaryGroup instanceof HTMLElement) {
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    let groupWidth = 0;
+    let previousGroupWidth = 0;
+    let automaticPosition = 0;
+    let dragging = false;
+    let dragged = false;
+    let suppressClick = false;
+    let pointerStart = 0;
+    let scrollStart = 0;
+    let resumeAt = performance.now() + 1800;
+    let previousTick = performance.now();
+
+    const normalizePosition = () => {
+      if (!groupWidth) return;
+      if (automaticPosition >= groupWidth * 2) automaticPosition -= groupWidth;
+      if (automaticPosition < groupWidth) automaticPosition += groupWidth;
+      reel.scrollLeft = automaticPosition;
+    };
+
+    const measure = () => {
+      const progress = previousGroupWidth ? (automaticPosition - previousGroupWidth) / previousGroupWidth : 0;
+      groupWidth = primaryGroup.offsetWidth;
+      automaticPosition = groupWidth + Math.max(0, Math.min(1, progress)) * groupWidth;
+      reel.scrollLeft = automaticPosition;
+      previousGroupWidth = groupWidth;
+    };
+
+    const pause = (delay = 1800) => {
+      resumeAt = performance.now() + delay;
+    };
+
+    reel.addEventListener('pointerdown', (event) => {
+      if (event.pointerType === 'mouse' && event.button !== 0) return;
+      dragging = true;
+      dragged = false;
+      pointerStart = event.clientX;
+      scrollStart = reel.scrollLeft;
+      reel.classList.add('is-dragging');
+      reel.setPointerCapture(event.pointerId);
+      pause();
+    });
+
+    reel.addEventListener('pointermove', (event) => {
+      if (!dragging) return;
+      const distance = event.clientX - pointerStart;
+      if (Math.abs(distance) > 4) dragged = true;
+      automaticPosition = scrollStart - distance;
+      normalizePosition();
+    });
+
+    const finishDrag = (event: PointerEvent) => {
+      if (!dragging) return;
+      dragging = false;
+      suppressClick = dragged;
+      reel.classList.remove('is-dragging');
+      if (reel.hasPointerCapture(event.pointerId)) reel.releasePointerCapture(event.pointerId);
+      pause();
+      window.setTimeout(() => { suppressClick = false; }, 0);
+    };
+
+    reel.addEventListener('pointerup', finishDrag);
+    reel.addEventListener('pointercancel', finishDrag);
+    reel.addEventListener('wheel', () => {
+      pause();
+      window.setTimeout(() => { automaticPosition = reel.scrollLeft; }, 0);
+    }, { passive: true });
+    reel.addEventListener('click', (event) => {
+      if (!suppressClick) return;
+      event.preventDefault();
+      event.stopPropagation();
+      suppressClick = false;
+    }, true);
+
+    const advance = () => {
+      const time = performance.now();
+      const elapsed = Math.min(time - previousTick, 50);
+      previousTick = time;
+      if (!dragging && time >= resumeAt && !prefersReducedMotion.matches && !document.hidden) {
+        automaticPosition += elapsed * 0.026;
+        normalizePosition();
+      }
+    };
+
+    const observer = new ResizeObserver(measure);
+    observer.observe(primaryGroup);
+    measure();
+    window.setInterval(advance, 16);
+  }
+</script>

@@ -1,0 +1,24 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import PageHero from '../../components/PageHero.astro';
+import { getCollection } from 'astro:content';
+import { withBase } from '../../utils/paths';
+
+const news = (await getCollection('news')).sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+---
+
+<Layout title="News">
+  <div class="breadcrumb shell"><a href={withBase('/')}>首页</a><span>›</span><span>News</span></div>
+  <PageHero eyebrow="Latest News" title="最新动态" description="研讨会的征稿、评议、嘉宾与活动进展，在这里持续更新。" />
+  <section class="listing shell">
+    <div class="listing-bar"><span>全部文章</span><span>{news.length} 篇</span></div>
+    <div class="news-rows">
+      {news.map((entry) => (
+        <a class="news-row" href={withBase(`/news/${entry.id}`)}>
+          <div class="news-meta"><time>{entry.data.date.toISOString().slice(0, 10).replaceAll('-', '.')}</time><span>{entry.data.category}</span></div>
+          <div><h3>{entry.data.title}</h3><p>{entry.data.description}</p><span class="read-more">阅读全文 →</span></div>
+        </a>
+      ))}
+    </div>
+  </section>
+</Layout>

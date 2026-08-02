@@ -1,0 +1,23 @@
+---
+import Layout from '../layouts/Layout.astro';
+import PageHero from '../components/PageHero.astro';
+import { archiveItems } from '../data/site';
+import { withBase } from '../utils/paths';
+---
+
+<Layout title="往期回顾">
+  <PageHero index="02" eyebrow="往期活动" title="往期回顾" description="把已经发生的讨论整理成可以再次进入的路径。按届次、日期与主题，持续归档。" />
+  <section class="listing shell">
+    <div class="filter-line"><span>活动档案</span><span>{archiveItems.length} 期</span></div>
+    <div class="archive-list">
+      {archiveItems.map((item) => (
+        <a class="archive-item" href={withBase(`/archive/${item.slug}`)}>
+          <span class="edition">{item.edition}</span>
+          <div><h2>{item.title}</h2><p>{item.summary}</p></div>
+          <div><span class="date">{item.date}</span><div class="tag-row">{item.tags.map((tag) => <span class="tag">{tag}</span>)}</div></div>
+          <span class="arrow" aria-hidden="true">↗</span>
+        </a>
+      ))}
+    </div>
+  </section>
+</Layout>

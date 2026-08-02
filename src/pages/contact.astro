@@ -1,0 +1,30 @@
+---
+import Layout from '../layouts/Layout.astro';
+import PageHero from '../components/PageHero.astro';
+---
+
+<Layout title="联系我们">
+  <PageHero index="06" eyebrow="联系我们" title="联系我们" description="无论你想加入一次分享，还是希望支持一场交流，都可以从一封邮件开始。" />
+  <section class="shell contact-layout">
+    <div>
+      <p class="eyebrow">直接联系</p>
+      <h2>把想法<br />寄过来。</h2>
+      <p>目前以个人邮箱作为主要联系入口。具体对接人和企业邮箱将在信息确认后替换。</p>
+      <a class="contact-email" href="mailto:symposium@example.edu.cn">symposium@example.edu.cn</a>
+    </div>
+    <div class="contact-blocks">
+      <section class="contact-block">
+        <div class="contact-label">01 / 参与与分享</div>
+        <h3>参与 / 分享</h3>
+        <p>想加入研讨会、申请上台分享，或有一份愿意公开的研究材料？请在邮件中简单介绍你与想讨论的问题。</p>
+        <span class="contact-person">对接人：内容负责人（占位）</span>
+      </section>
+      <section class="contact-block">
+        <div class="contact-label">02 / 赞助与合作</div>
+        <h3>赞助 / 合作</h3>
+        <p>欢迎咨询场地、物资、传播与长期合作。我们会根据活动需要提供合作说明与资料包。</p>
+        <span class="contact-person">对接人：姚志远 · 后勤 / 采购负责人（占位）</span>
+      </section>
+    </div>
+  </section>
+</Layout>

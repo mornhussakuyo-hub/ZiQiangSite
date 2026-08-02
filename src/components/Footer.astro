@@ -1,0 +1,33 @@
+---
+import { navItems } from '../data/site';
+import { withBase } from '../utils/paths';
+---
+
+<footer id="contact" class="site-footer">
+  <div class="shell footer-grid">
+    <div class="footer-about">
+      <a class="brand footer-brand" href={withBase('/#top')}>
+        <span class="brand-mark" aria-hidden="true">自</span>
+        <span class="brand-copy"><strong>自强学术研讨会</strong><small>ZIQIANG SEMINAR</small></span>
+      </a>
+      <p>面向高校师生的年度学术交流活动，鼓励严谨、坦诚、克制的讨论。</p>
+      <a class="mail-link" href="mailto:seminar@ziqiang.edu.cn">✉ seminar@ziqiang.edu.cn</a>
+    </div>
+    <div class="footer-nav">
+      <h2>快速导航</h2>
+      <nav>{navItems.map((item) => <a href={withBase(item.href)}>{item.label}</a>)}</nav>
+    </div>
+    <div class="footer-magazine">
+      <h2>学术刊物</h2>
+      <a class="magazine-card" href={withBase('/magazine')}>
+        <strong>ZIQIANG<br />MAGAZINE</strong>
+        <p>记录更完整的研究、人物与现场，首期正在筹备。</p>
+        <span>了解详情 ↗</span>
+      </a>
+    </div>
+  </div>
+  <div class="shell footer-bottom">
+    <span>© 2026 自强学术研讨会 · 保留所有权利</span>
+    <span>2026 · 春季 · 北京</span>
+  </div>
+</footer>

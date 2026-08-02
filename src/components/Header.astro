@@ -1,0 +1,49 @@
+---
+import { navItems } from '../data/site';
+import { withBase } from '../utils/paths';
+---
+
+<header class="site-header" data-header>
+  <div class="shell header-inner">
+    <a class="brand" href={withBase('/#top')} aria-label="自强学术研讨会首页">
+      <span class="brand-mark" aria-hidden="true">自</span>
+      <span class="brand-copy">
+        <strong>自强学术研讨会</strong>
+        <small>ZIQIANG SEMINAR</small>
+      </span>
+    </a>
+
+    <nav class="desktop-nav" aria-label="主导航">
+      {navItems.map((item) => <a href={withBase(item.href)}>{item.label}</a>)}
+    </nav>
+
+    <button class="menu-button" type="button" aria-label="打开导航" aria-expanded="false" data-menu-button>
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <div class="menu-panel" data-menu-panel hidden>
+    <nav class="shell" aria-label="展开导航">
+      {navItems.map((item) => <a href={withBase(item.href)}>{item.label}<span aria-hidden="true">↗</span></a>)}
+    </nav>
+  </div>
+</header>
+
+<script>
+  const header = document.querySelector('[data-header]');
+  const button = document.querySelector('[data-menu-button]');
+  const panel = document.querySelector('[data-menu-panel]');
+  const syncHeader = () => header?.classList.toggle('is-scrolled', window.scrollY > 12);
+  syncHeader();
+  window.addEventListener('scroll', syncHeader, { passive: true });
+  button?.addEventListener('click', () => {
+    const expanded = button.getAttribute('aria-expanded') === 'true';
+    button.setAttribute('aria-expanded', String(!expanded));
+    if (panel instanceof HTMLElement) panel.hidden = expanded;
+    document.body.classList.toggle('menu-open', !expanded);
+  });
+  panel?.querySelectorAll('a').forEach((link) => link.addEventListener('click', () => {
+    button?.setAttribute('aria-expanded', 'false');
+    if (panel instanceof HTMLElement) panel.hidden = true;
+    document.body.classList.remove('menu-open');
+  }));
+</script>

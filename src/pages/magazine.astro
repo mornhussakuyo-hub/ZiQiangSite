@@ -1,0 +1,14 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { withBase } from '../utils/paths';
+---
+
+<Layout title="Magazine">
+  <section class="magazine-empty">
+    <div class="mark" aria-hidden="true">M</div>
+    <p class="eyebrow">学术杂志 / 筹备中</p>
+    <h1>敬请期待。</h1>
+    <p>Magazine 将记录更完整的故事、人物与启发。首期内容正在整理，未来会与 News 保持清晰区分。</p>
+    <a class="text-link" href={withBase('/news')}>先阅读 News <span aria-hidden="true">↗</span></a>
+  </section>
+</Layout>

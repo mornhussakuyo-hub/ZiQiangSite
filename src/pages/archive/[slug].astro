@@ -1,0 +1,32 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { archiveItems } from '../../data/site';
+import { withBase } from '../../utils/paths';
+
+export function getStaticPaths() {
+  return archiveItems.map((item) => ({ params: { slug: item.slug }, props: { item } }));
+}
+
+const { item } = Astro.props;
+---
+
+<Layout title={item.title} description={item.summary}>
+  <div class="breadcrumb shell"><a href={withBase('/')}>首页</a><span>›</span><a href={withBase('/archive')}>往期回顾</a><span>›</span><span>{item.edition}</span></div>
+  <article class="article-page">
+    <header class="article-header article-width">
+      <div class="article-category"><span></span><strong>{item.edition}</strong></div>
+      <h1>{item.title}</h1>
+      <p class="article-lead">{item.summary}</p>
+      <div class="article-byline"><time>{item.date}</time><span>档案 · {item.tags.join(' / ')}</span></div>
+    </header>
+    <div class="article-body article-width">
+      <figure class="article-cover"><img src={withBase('/images/library-article.webp')} alt="古典图书馆阅览室" /><figcaption>图 · 活动视觉资料示意，正式发布前需核对授权。</figcaption></figure>
+      <div class="prose">
+        <p>本届自强学术研讨会围绕“{item.title}”展开，汇聚来自多所高校的青年学者与学生，分享研究过程、方法选择与仍然开放的问题。</p>
+        <h2>活动概况</h2>
+        <p>活动设置主旨演讲、青年学者分论坛、圆桌讨论与学生成果展示。会后资料将由内容组整理，在获得报告者授权后陆续开放。</p>
+        <blockquote><p>研讨会希望保留的不只是一次活动记录，更是一份可以继续被阅读、引用与讨论的学术档案。</p></blockquote>
+      </div>
+    </div>
+  </article>
+</Layout>

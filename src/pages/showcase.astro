@@ -1,0 +1,24 @@
+---
+import Layout from '../layouts/Layout.astro';
+import PageHero from '../components/PageHero.astro';
+import { showcases } from '../data/site';
+import { withBase } from '../utils/paths';
+---
+
+<Layout title="精彩展示">
+  <PageHero eyebrow="Student Showcase" title="精彩展示" description="节选报告摘要，并保留经过分享者授权的资料入口。" />
+  <section class="listing shell">
+    <div class="listing-bar"><span>摘要与资料</span><span>{showcases.length} 份</span></div>
+    <div class="showcase-grid">
+      {showcases.map((item) => (
+        <article class="showcase-card">
+          <div class="showcase-top"><span class="file-icon">▱</span><span class="tag">{item.type}</span></div>
+          <h3>{item.title}</h3>
+          <strong>{item.author} · {item.identity}</strong>
+          <p>{item.summary}</p>
+          <div class="showcase-foot"><a href={withBase('/files/materials-note.txt')} download>下载资料 ↘</a></div>
+        </article>
+      ))}
+    </div>
+  </section>
+</Layout>
