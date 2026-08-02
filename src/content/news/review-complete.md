@@ -4,7 +4,7 @@ description: 本届组委会已完成首轮来稿评议，共收到投稿 187 �
 date: 2026-06-28
 category: 动态
 author: 学术评议组
-source: 自强学术研讨会组委会
+source: 武汉大学人工智能学院自强班
 featured: false
 cover: /images/library-article.webp
 ---

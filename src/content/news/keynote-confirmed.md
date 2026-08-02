@@ -4,7 +4,7 @@ description: 哲学学者 ABC 教授确认担任本届研讨会主旨演讲嘉�
 date: 2026-07-10
 category: 学术
 author: 内容组
-source: 自强学术研讨会组委会
+source: 武汉大学人工智能学院自强班
 featured: true
 cover: /images/library-article.webp
 ---
